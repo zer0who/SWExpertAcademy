@@ -1,4 +1,4 @@
 alphabets = input()
-print(alphabets)
+
 for i in range(len(alphabets)):
-    print(ascii(alphabets[i], end = " "))
+    print(ord(alphabets[i])-64, end = " ")
