@@ -13,35 +13,29 @@ for t in range(1, T+1):
     for p in puzzle:
         count = 0
         for i in range(N-1):
-            if i == N-2:
-                if p[i] == 1 and p[i] == p[i+1]:
-                    count += 1
+            if p[i] == 1 and p[i] == p[i+1]:
+                count += 1
+            else:
                 if count == K-1:
                     result += 1
-            else:
-                if p[i] != p[i+1]:
-                    if count == K-1:
-                        result += 1
-                    else:
-                        count = 0
-                if p[i] == 1 and p[i] == p[i+1]:
-                    count += 1
+                count = 0
+
+            if i == N-2:
+                if count == K-1:
+                    result += 1
 
     for tp in transposed_puzzle:
         count = 0
         for i in range(N-1):
-            if i == N-2:
-                if tp[i] == 1 and tp[i] == tp[i+1]:
-                    count += 1
+            if tp[i] == 1 and tp[i] == tp[i+1]:
+                count += 1
+            else:
                 if count == K-1:
                     result += 1
-            else:
-                if tp[i] != tp[i+1]:
-                    if count == K-1:
-                        result += 1
-                    else:
-                        count = 0
-                if tp[i] == 1 and tp[i] == tp[i+1]:
-                    count += 1
+                count = 0
+
+            if i == N-2:
+                if count == K-1:
+                    result += 1
 
     print("#{0}".format(t), result)
