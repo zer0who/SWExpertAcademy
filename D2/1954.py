@@ -1,42 +1,52 @@
+dir_vector = {0: (0, 1), 1: (1, 0), 2: (0, -1), 3: (-1, 0)}
+
+
+def indexController(row, col, direction):
+    row -= dir_vector[direction][0]
+    col -= dir_vector[direction][1]
+    if direction == 3:
+        direction = 0
+    else:
+        direction += 1
+    row += dir_vector[direction][0]
+    col += dir_vector[direction][1]
+
+    return row, col, direction
+
+
 T = int(input())
-direction = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 for t in range(1, T+1):
     N = int(input())
+    if N == 1:
+        print("#{}".format(t))
+        print(1)
+        continue
     snail = [[0 for col in range(N)] for row in range(N)]
-    row_index = 0
-    col_index = 0
+    row_idx = 0
+    col_idx = 0
+    dir_idx = 0
     number = 1
 
-    while True:
-        if number == N*N:
-            break
-        for d in direction:
-            if number == N*N:
-                snail[row_index][col_index] = number
-                break
-            while True:
-                print(row_index, col_index)
-                snail[row_index][col_index] = number
-                print(snail)
-                number += 1
-                row_index += d[0]
-                col_index += d[1]
+    while number < N*N + 1:
+        snail[row_idx][col_idx] = number
+        number += 1
+        row_idx = row_idx + dir_vector[dir_idx][0]
+        col_idx = col_idx + dir_vector[dir_idx][1]
+        if col_idx == N:
+            row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
+        elif col_idx == -1:
+            row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
+        elif row_idx == N:
+            row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
 
-                if col_index == N:
-                    col_index -= 1
-                    row_index += 1
-                    break
-                elif col_index == -1:
-                    col_index += 1
-                    row_index -= 1
-                    break
-                elif row_index == N:
-                    row_index -= 1
-                    col_index -= 1
-                    break
-                elif snail[row_index][col_index] != 0:
-                    break
+        if snail[row_idx][col_idx] != 0:
+            if dir_idx == 3:
+                row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
+            else:
+                row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
 
     print("#{}".format(t))
     for r in snail:
-        print(r)
+        for i in range(len(r)):
+            print(r[i], end=" ")
+        print("")
