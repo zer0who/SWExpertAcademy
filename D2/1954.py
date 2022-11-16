@@ -40,10 +40,7 @@ for t in range(1, T+1):
             row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
 
         if snail[row_idx][col_idx] != 0:
-            if dir_idx == 3:
-                row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
-            else:
-                row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
+            row_idx, col_idx, dir_idx = indexController(row_idx, col_idx, dir_idx)
 
     print("#{}".format(t))
     for r in snail:
